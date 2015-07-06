@@ -19,8 +19,8 @@ public:
   bool byteAvailable() { return (digitalRead(BYTE_READY) == HIGH); }
   void readByte();
 
-  bool hasBytes(int num) {
-    if (m_dataIndex >= num - 1) {
+  bool hasFourBytes() {
+    if (m_dataIndex >= 4) {
       m_dataIndex = 0;
       return true;
     } else {

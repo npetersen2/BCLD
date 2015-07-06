@@ -11,9 +11,9 @@ public:
   PB_Master();
   ~PB_Master() {}
 
-  void show();
-  void reset();
-  void fillScreen(byte r, byte g, byte b);
+  void show() { sendPackage(1, 0, 0, 0); }
+  void clear() { sendPackage(255, 0, 0, 0); }
+  void fillScreen(byte r, byte g, byte b) { sendPackage(2, r, g, b); }
 
   void sendPackage(byte command, byte r, byte g, byte b);
 

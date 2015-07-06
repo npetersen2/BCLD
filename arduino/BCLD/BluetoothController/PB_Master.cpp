@@ -9,18 +9,6 @@ PB_Master::PB_Master() {
   digitalWrite(BYTE_READY, LOW);
 }
 
-void PB_Master::show() {
-  sendPackage(1, 0, 0, 0);
-}
-
-void PB_Master::reset() {
-  sendPackage(255, 0, 0, 0);
-}
-
-void PB_Master::fillScreen(byte r, byte g, byte b) {
-  sendPackage(2, r, g, b);
-}
-
 void PB_Master::sendPackage(byte command, byte r, byte g, byte b) {
   sendByte(command);
   sendByte(r);

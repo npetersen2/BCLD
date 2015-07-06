@@ -8,19 +8,32 @@ void setup() {
 }
 
 void loop() {
-  static byte rgb[3];
-  for (int i = 0; i < 3; i++) rgb[i] = random(0, 256);
 
+  static byte r = 30;
+  static byte g = 178;
+  static byte b = 244;
 
-
-  pb_master.reset();
-  pb_master.fillScreen(rgb[0], rgb[1], rgb[2]);
-  // for (int i = 0; i < 256; i++) pb_master.sendPackage(0, rgb[0], rgb[1], rgb[2]);
+  pb_master.clear();
+  //pb_master.fillScreen(r, g, b);
+  for (int i = 0; i < 256; i++) pb_master.sendPackage(0, r * .25, g * .25, b * .25);
   pb_master.show();
 
+  r += 100;
+  g += 200;
+  b += 300;
 
+  /*
+  static int counter = 0;
+  static unsigned long start = millis();
+  static unsigned long end = start + 10000; // 10 sec later
+  if (millis() > end) {
+    Serial.print("Frames in last 10 sec: ");
+    Serial.println(counter);
+    counter = 0;
 
-  for (int i = 0; i < 3; i++) {
-    rgb[i] = random(0, 256);
+    start = millis();
+    end = start + 10000;
   }
+  counter++;
+  */
 }

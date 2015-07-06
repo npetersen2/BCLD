@@ -23,12 +23,12 @@ void loop() {
   if (pb_slave.byteAvailable()) {
     pb_slave.readByte();
 
-    if (pb_slave.hasBytes(4)) {
+    if (pb_slave.hasFourBytes()) {
       // done with 4-byte chunk
 
       switch (pb_slave.command()) {
         case 0: // ADD COLOR()
-          strip.setPixelColor(pb_slave.ledPos(true), pb_slave.r(), pb_slave.g(), pb_slave.b());
+          strip.setPixelColor(pb_slave.ledPos(true), strip.Color(pb_slave.r(), pb_slave.g(), pb_slave.b()));          
           break;
 
         case 1: // SHOW()
@@ -37,10 +37,10 @@ void loop() {
           break;
 
         case 2: // FILL SCREEN
-          for (int i = 0; i < 256; i++) strip.setPixelColor(i, pb_slave.r(), pb_slave.g(), pb_slave.b());
+          for (int i = 0; i < 256; i++) strip.setPixelColor(i, strip.Color(pb_slave.r(), pb_slave.g(), pb_slave.b()));
           break;
 
-        case 255: // RESET()
+        case 255: // CLEAR()
           strip.clear();
           pb_slave.reset();
           break;
