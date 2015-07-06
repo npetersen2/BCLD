@@ -1,6 +1,6 @@
-#include "Receiver.h"
+#include "PB_Slave.h"
 
-Receiver::Receiver() {
+PB_Slave::PB_Slave() {
   // Arduino/Arduino communication pins setup
   for (int i = 0; i < 8; i++) pinMode(PARALELL_BUS[i], INPUT);
   pinMode(BYTE_READY, INPUT);
@@ -11,14 +11,13 @@ Receiver::Receiver() {
   reset();
 }
 
-void Receiver::reset() {
+void PB_Slave::reset() {
   m_ledPos = 0;
   for (int i = 0; i < 4; i++) m_data[i] = 0;
   m_dataIndex = 0;    
 }
 
-
-bool Receiver::readByte() {
+void PB_Slave::readByte() {
   byte inData = 0;
   
   for (int i = 0; i < 8; i++) {
@@ -32,11 +31,4 @@ bool Receiver::readByte() {
   digitalWrite(BYTE_RECEIVED, LOW);
 
   m_data[m_dataIndex++] = inData;
-
-  if (m_dataIndex > 3) {
-    m_dataIndex = 0;
-    return true;
-  } else {
-    return false;
-  }
 }

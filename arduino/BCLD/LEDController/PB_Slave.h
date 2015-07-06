@@ -1,9 +1,9 @@
-#ifndef RECEIVER_H
-#define RECEIVER_H
+#ifndef PB_SLAVE_H
+#define PB_SLAVE_H
 
 #include "Constants.h"
 
-class Receiver {
+class PB_Slave {
 
 private:
   byte m_ledPos;
@@ -11,13 +11,22 @@ private:
   byte m_dataIndex;
 
 public:
-  Receiver();
-  ~Receiver() {}
+  PB_Slave();
+  ~PB_Slave() {}
 
   void reset();
 
   bool byteAvailable() { return (digitalRead(BYTE_READY) == HIGH); }
-  bool readByte();
+  void readByte();
+
+  bool hasBytes(int num) {
+    if (m_dataIndex >= num - 1) {
+      m_dataIndex = 0;
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   byte ledPos(bool increment) {
     if (increment) {
