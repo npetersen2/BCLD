@@ -4,7 +4,7 @@ SD_Card::SD_Card() {
   pinMode(SD_CS, OUTPUT); // CS for SD library
   SD.begin(SD_CS);
   
-  m_file = SD.open("data.txt");
+  m_file = SD.open("data.txt", FILE_READ);
 }
 
 SD_Card::~SD_Card() {

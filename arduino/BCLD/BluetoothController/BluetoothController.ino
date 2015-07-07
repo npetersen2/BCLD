@@ -13,13 +13,14 @@ SD_Card sd_card = SD_Card();
 
 void setup() {
   Serial.begin(9600);
+  Serial.println("Start of 'BluetoothController.ino'");
 }
 
 void loop() {
-
   byte data[4];
 
   if (sd_card.readBytes(data, 4)) {
+
     switch(data[0]) {
       case 0: // ADD COLOR()
         pb_master.sendPixel(data[1], data[2], data[3]);
@@ -34,7 +35,7 @@ void loop() {
         break;
 
       case 3: // DELAY()
-        delay(data[1] * 10);
+        delay(data[1]);
         break;
 
       case 255: // CLEAR()
@@ -54,40 +55,15 @@ void loop() {
 
 /*
 
-  static int counter = 0;
-  static unsigned long start = millis();
-  static unsigned long end = start + 10000; // 10 sec later
-  if (millis() > end) {
-    Serial.print("Frames in last 10 sec: ");
-    Serial.println(counter);
-    counter = 0;
+static int counter = 0;
+static unsigned long start = millis();
+static unsigned long end = start + 10000; // 10 sec later
+if (millis() > end) {
+  Serial.print("Frames in last 10 sec: ");
+  Serial.println(counter);
+  counter = 0;
 
-    start = millis();
-    end = start + 10000;
-  }
-
-
-  pb_master.clear();
-  for (int i = 0; i < 3*256; i += 3) {
-    pb_master.sendPixel(MINION_DATA[i], MINION_DATA[i+1], MINION_DATA[i+2]);
-  }
-  pb_master.show();
-  //counter++;
-
-
-  delay(300);
-
-
-  pb_master.clear();
-  for (int i = 0; i < 3*256; i += 3) {
-    pb_master.sendPixel(MINION2_DATA[i], MINION2_DATA[i+1], MINION2_DATA[i+2]);
-  }
-  pb_master.show();
-  //counter++;
-  
-
-
-  delay(300);
-}
+  start = millis();
+  end = start + 10000;
 
 */

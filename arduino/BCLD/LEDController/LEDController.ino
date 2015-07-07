@@ -9,7 +9,8 @@ byte getIndex(byte x, byte y);
 
 void setup() {
   Serial.begin(9600);
-  
+  Serial.println("Start of 'LEDController.ino'");
+
   strip.begin();
   strip.setBrightness(255);
   strip.show();
@@ -21,6 +22,16 @@ void loop() {
 
     if (pb_slave.hasBytes(4)) {
       // done with 4-byte chunk
+
+      /*
+      Serial.print(pb_slave.command());
+      Serial.print(" ");
+      Serial.print(pb_slave.r());
+      Serial.print(" ");
+      Serial.print(pb_slave.g());
+      Serial.print(" ");
+      Serial.println(pb_slave.b());
+      */
 
       switch (pb_slave.command()) {
         case 0: // ADD COLOR()
