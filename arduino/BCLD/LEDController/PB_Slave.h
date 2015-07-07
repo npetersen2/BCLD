@@ -1,7 +1,7 @@
 #ifndef PB_SLAVE_H
 #define PB_SLAVE_H
 
-#include "Constants.h"
+#include "LED_Constants.h"
 
 class PB_Slave {
 

@@ -1,5 +1,5 @@
-#ifndef CONSTANTS_H
-#define CONSTANTS_H
+#ifndef LED_CONSTANTS_H
+#define LED_CONSTANTS_H
 
 #include <Arduino.h>
 

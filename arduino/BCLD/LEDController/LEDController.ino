@@ -1,14 +1,8 @@
-#include "Constants.h"
-
-#include <Adafruit_GFX.h>
-#include <Adafruit_NeoMatrix.h>
 #include <Adafruit_NeoPixel.h>
-
+#include "LED_Constants.h"
 #include "PB_Slave.h"
 
-// numOfPixels, pin, constants
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(256, 10, NEO_GRB + NEO_KHZ800);
-
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(256, 10, NEO_GRB + NEO_KHZ800); // numOfPixels, pin, constants
 PB_Slave pb_slave = PB_Slave();
 
 byte getIndex(byte x, byte y);
