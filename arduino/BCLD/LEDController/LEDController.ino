@@ -1,7 +1,7 @@
 #include "Constants.h"
 
-//#include <Adafruit_GFX.h>
-//#include <Adafruit_NeoMatrix.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_NeoMatrix.h>
 #include <Adafruit_NeoPixel.h>
 
 #include "PB_Slave.h"
@@ -10,6 +10,8 @@
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(256, 10, NEO_GRB + NEO_KHZ800);
 
 PB_Slave pb_slave = PB_Slave();
+
+byte getIndex(byte x, byte y);
 
 void setup() {
   Serial.begin(9600);
@@ -23,12 +25,13 @@ void loop() {
   if (pb_slave.byteAvailable()) {
     pb_slave.readByte();
 
-    if (pb_slave.hasFourBytes()) {
+    if (pb_slave.hasBytes(4)) {
       // done with 4-byte chunk
 
       switch (pb_slave.command()) {
         case 0: // ADD COLOR()
-          strip.setPixelColor(pb_slave.ledPos(true), strip.Color(pb_slave.r(), pb_slave.g(), pb_slave.b()));          
+          strip.setPixelColor(getIndex(pb_slave.ledPosX(false), pb_slave.ledPosY(false)), pb_slave.r(), pb_slave.g(), pb_slave.b());
+          if (pb_slave.ledPosX(true) >= 15) pb_slave.ledPosY(true);
           break;
 
         case 1: // SHOW()
@@ -37,7 +40,7 @@ void loop() {
           break;
 
         case 2: // FILL SCREEN
-          for (int i = 0; i < 256; i++) strip.setPixelColor(i, strip.Color(pb_slave.r(), pb_slave.g(), pb_slave.b()));
+          for (int i = 0; i < 256; i++) strip.setPixelColor(i, pb_slave.r(), pb_slave.g(), pb_slave.b());
           break;
 
         case 255: // CLEAR()
@@ -50,4 +53,18 @@ void loop() {
       }
     }
   }
+}
+
+byte getIndex(byte x, byte y) {
+  byte index;
+
+  if (y == 0) {
+    index = 15 - x;
+  } else if (y % 2 != 0) {
+    index = y * 16 + x;
+  } else {
+    index = (y * 16 + 15) - x;
+  }
+
+  return index;
 }

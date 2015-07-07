@@ -12,7 +12,8 @@ PB_Slave::PB_Slave() {
 }
 
 void PB_Slave::reset() {
-  m_ledPos = 0;
+  m_ledPosX = 0;
+  m_ledPosY = 0;
   for (int i = 0; i < 4; i++) m_data[i] = 0;
   m_dataIndex = 0;    
 }

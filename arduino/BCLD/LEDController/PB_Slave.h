@@ -6,7 +6,8 @@
 class PB_Slave {
 
 private:
-  byte m_ledPos;
+  byte m_ledPosX;
+  byte m_ledPosY;
   byte m_data[4];
   byte m_dataIndex;
 
@@ -19,8 +20,8 @@ public:
   bool byteAvailable() { return (digitalRead(BYTE_READY) == HIGH); }
   void readByte();
 
-  bool hasFourBytes() {
-    if (m_dataIndex >= 4) {
+  bool hasBytes(int num) {
+    if (m_dataIndex >= num) {
       m_dataIndex = 0;
       return true;
     } else {
@@ -28,11 +29,29 @@ public:
     }
   }
 
-  byte ledPos(bool increment) {
+  byte ledPosX(bool increment) {
     if (increment) {
-      return m_ledPos++;
+      if (m_ledPosX >= 15) {
+        m_ledPosX = 0;
+        return 15;
+      } else {
+        return m_ledPosX++;        
+      }
     } else {
-      return m_ledPos;
+      return m_ledPosX;
+    }
+  }
+
+  byte ledPosY(bool increment) {
+    if (increment) {
+      if (m_ledPosY >= 15) {
+        m_ledPosY = 0;
+        return 15;
+      } else {
+        return m_ledPosY++;        
+      }
+    } else {
+      return m_ledPosY;
     }
   }
 
