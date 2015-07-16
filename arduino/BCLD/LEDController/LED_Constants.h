@@ -20,5 +20,6 @@ static const int CMD_CLEAR = 255;
 // NeoPixel constants
 static const int PANEL_PIN = 10;
 static const int PANEL_NUM_PIXELS = 256;
+static const int PANEL_WIDTH = 16;
 
 #endif;

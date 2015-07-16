@@ -33,7 +33,9 @@ void loop() {
                                 pb_worker.r(),
                                 pb_worker.g(),
                                 pb_worker.b());
-          if (pb_worker.ledPosX(true) >= 15) pb_worker.ledPosY(true); // increment y-pos at the end of a row
+          if (pb_worker.ledPosX(true) >= PANEL_WIDTH - 1) {
+            pb_worker.ledPosY(true); // increment y-pos at the end of a row
+          }
           break;
 
         case CMD_SHOW:
